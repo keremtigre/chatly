@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.white),
           elevation: 2,
         ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
+        ),
         textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme),
         primarySwatch: MaterialColor(0xff0584FE, color),
         unselectedWidgetColor: Theme.of(context).primaryColor);

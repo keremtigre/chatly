@@ -17,6 +17,17 @@ class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    MessagesRoute.name: (routeData) {
+      final args = routeData.argsAs<MessagesRouteArgs>(
+          orElse: () => const MessagesRouteArgs());
+      return CustomPage<dynamic>(
+        routeData: routeData,
+        child: MessagesPage(key: args.key),
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     LoginRoute.name: (routeData) {
       final args = routeData.argsAs<LoginRouteArgs>(
           orElse: () => const LoginRouteArgs());
@@ -56,6 +67,10 @@ class _$AppRouter extends RootStackRouter {
           fullMatch: true,
         ),
         RouteConfig(
+          MessagesRoute.name,
+          path: '/messages',
+        ),
+        RouteConfig(
           LoginRoute.name,
           path: '/login',
         ),
@@ -68,6 +83,30 @@ class _$AppRouter extends RootStackRouter {
           path: '/home',
         ),
       ];
+}
+
+/// generated route for
+/// [MessagesPage]
+class MessagesRoute extends PageRouteInfo<MessagesRouteArgs> {
+  MessagesRoute({Key? key})
+      : super(
+          MessagesRoute.name,
+          path: '/messages',
+          args: MessagesRouteArgs(key: key),
+        );
+
+  static const String name = 'MessagesRoute';
+}
+
+class MessagesRouteArgs {
+  const MessagesRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'MessagesRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

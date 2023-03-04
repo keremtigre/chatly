@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:chatly/Product/routes/app_router.dart';
 import 'package:chatly/Screens/Authentication/Service/auth_service.dart';
+import 'package:chatly/Screens/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -26,17 +29,21 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginInitial());
   }
 
-  loginWithEmailAndPassword() async {
+  loginWithEmailAndPassword(BuildContext context) async {
     if (loginFormKey.currentState!.validate()) {
       emit(LoginLoading());
-      await Future.delayed(const Duration(milliseconds: 200));
+      // await Future.delayed(const Duration(milliseconds: 200));
       FirebaseAuthService()
           .loginWithEmailAndPassword(
               email: loginEmailController.text,
               password: loginPasswordController.text)
-          .then((value) {
+          .then((value) async {
         if (value == null) {
           emit(LoginComplated());
+          await context.router.pushAndPopUntil(
+            HomeRoute(),
+            predicate: (route) => false,
+          );
         } else {
           emit(LoginError(errorMessage: value));
         }

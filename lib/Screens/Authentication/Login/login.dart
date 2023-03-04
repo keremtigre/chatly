@@ -1,6 +1,8 @@
 library login.dart;
 
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:chatly/Product/routes/app_router.dart';
 import 'package:chatly/Screens/Authentication/Login/viewmodel/cubit/login_cubit.dart';
 import 'package:chatly/Screens/Authentication/Widgets/create_auth_text_field.dart';
 import 'package:chatly/Screens/Authentication/Widgets/go_login_or_signup_page_text.dart';
@@ -8,7 +10,9 @@ import 'package:chatly/Screens/Authentication/Widgets/auth_button.dart';
 import 'package:chatly/Screens/Authentication/Widgets/auth_title.dart';
 import 'package:chatly/Product/extansions/context_extensions.dart';
 import 'package:chatly/Screens/Authentication/Widgets/top_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
@@ -24,8 +28,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Future _isLogged() async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        context.router.pushAndPopUntil(
+          HomeRoute(),
+          predicate: (route) => false,
+        );
+      }
+    });
+  }
+
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await _isLogged();
+    });
     super.initState();
   }
 
@@ -72,46 +92,40 @@ class _LoginPageState extends State<LoginPage> {
 
   AuthButton loginButton(LoginState state, BuildContext context) {
     return AuthButton(
-                      isLoading: state is LoginLoading ? true : false,
-                      color: buttonColor(context, state),
-                      text: "Giriş Yap",
-                      onPressed: /* state is LoginComplated
-                          ? () {}
-                          :  */
-                          () {
-                        context
-                            .read<LoginCubit>()
-                            .loginWithEmailAndPassword();
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      });
+        isLoading: state is LoginLoading ? true : false,
+        color: buttonColor(context, state),
+        text: "Giriş Yap",
+        onPressed: state is LoginComplated
+            ? () {}
+            : () async {
+                await context
+                    .read<LoginCubit>()
+                    .loginWithEmailAndPassword(context);
+                FocusManager.instance.primaryFocus?.unfocus();
+              });
   }
 
   Widget passwordField(BuildContext context) {
     return createAuthTextFormField(
-                    validator: (value) =>
-                        context.passwordValidator(value ?? ""),
-                    textEditingController:
-                        context.read<LoginCubit>().loginPasswordController,
-                    context,
-                    showPassword:
-                        context.read<LoginCubit>().loginPasswordVisibility,
-                    label: "password",
-                    hintText: "************",
-                    isPasswordText: true,
-                    onPressed: () =>
-                        context.read<LoginCubit>().setPasswordVisibility(),
-                  );
+      validator: (value) => context.passwordValidator(value ?? ""),
+      textEditingController: context.read<LoginCubit>().loginPasswordController,
+      context,
+      showPassword: context.read<LoginCubit>().loginPasswordVisibility,
+      label: "password",
+      hintText: "************",
+      isPasswordText: true,
+      onPressed: () => context.read<LoginCubit>().setPasswordVisibility(),
+    );
   }
 
   Widget emailField(BuildContext context) {
     return createAuthTextFormField(
-                    validator: (value) => context.emailValidator(value ?? ""),
-                    textEditingController:
-                        context.read<LoginCubit>().loginEmailController,
-                    context,
-                    label: "email",
-                    hintText: "example@example.com",
-                  );
+      validator: (value) => context.emailValidator(value ?? ""),
+      textEditingController: context.read<LoginCubit>().loginEmailController,
+      context,
+      label: "email",
+      hintText: "example@example.com",
+    );
   }
 
   Color? buttonColor(BuildContext context, LoginState state) {

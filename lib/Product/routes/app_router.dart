@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chatly/Screens/Authentication/Login/login.dart';
 import 'package:chatly/Screens/Authentication/SignUp/sign_up.dart';
+import 'package:chatly/Screens/Home/Chats/chats.dart';
+import 'package:chatly/Screens/Home/Messages/messages.dart';
+import 'package:chatly/Screens/Home/Stories/stories.dart';
 import 'package:chatly/Screens/Home/home.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +13,10 @@ part 'app_router.gr.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     CustomRoute(
+        page: MessagesPage,
+        path: "/messages",
+        transitionsBuilder: TransitionsBuilders.slideBottom),
+    CustomRoute(
         page: LoginPage,
         initial: true,
         path: "/login",
@@ -18,7 +25,10 @@ part 'app_router.gr.dart';
         page: SignUpPage,
         path: "/signup",
         transitionsBuilder: TransitionsBuilders.slideBottom),
-    AutoRoute(page: HomePage, path: "/home")
+    AutoRoute(
+      page: HomePage,
+      path: "/home",
+    ),
   ],
 )
 class AppRouter extends _$AppRouter {}
