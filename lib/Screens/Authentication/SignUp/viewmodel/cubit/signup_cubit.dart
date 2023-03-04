@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bloc/bloc.dart';
 import 'package:chatly/Product/constants/firebase_firestore_const.dart';
 import 'package:chatly/Product/routes/app_router.dart';
 import 'package:chatly/Screens/Authentication/Service/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'signup_state.dart';
 
@@ -50,22 +50,22 @@ class SignUpCubit extends Cubit<SignUpState> {
         if (value == null) {
           emit(SignUpComplated());
           //if signup succesfull, save user data
-          final _user = FirebaseAuth.instance.currentUser;
+          final user = FirebaseAuth.instance.currentUser;
           firebaseFirestore
               .collection(FirestoreConst.collectionPathUser)
-              .doc(_user?.uid)
+              .doc(user?.uid)
               .set({
             FirestoreConst.displayName:
                 "${signUpNameController.text} ${signUpSurnameController.text}",
-            FirestoreConst.photoUrl: _user?.photoURL,
-            FirestoreConst.id: _user?.uid,
+            FirestoreConst.photoUrl: user?.photoURL,
+            FirestoreConst.id: user?.uid,
             FirestoreConst.createdAt:
                 DateTime.now().millisecondsSinceEpoch.toString(),
             FirestoreConst.chattingWith: null
           });
           await Future.delayed(const Duration(milliseconds: 600));
           context.router.pushAndPopUntil(
-            HomeRoute(),
+            const HomeRoute(),
             predicate: (route) => false,
           );
         }

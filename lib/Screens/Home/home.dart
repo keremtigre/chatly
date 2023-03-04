@@ -14,47 +14,46 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  late TabController _controller =
+  late final TabController _controller =
       TabController(length: 2, vsync: this, initialIndex: 0);
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          IconButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                context.router.pushAndPopUntil(
-                  LoginRoute(),
-                  predicate: (route) => false,
-                );
-              },
-              icon: const Icon(Icons.more_vert))
-        ],
-        centerTitle: false,
-        title: const AutoSizeText(
-          "Chatly",
-        ),
-        bottom: TabBar(controller: _controller, tabs: const [
-          Tab(
-            child: AutoSizeText("Messages"),
-          ),
-          Tab(
-            child: Text("Stories"),
-          ),
-        ]),
-      ),
+      appBar: homeAppBar(context),
       body: TabBarView(
         controller: _controller,
-        children: [ChatsPage(), StoriesPage()],
+        children: const [ChatsPage(), StoriesPage()],
       ),
+    );
+  }
+
+  PreferredSizeWidget homeAppBar(BuildContext context) {
+    return AppBar(
+      actions: [
+        IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+        IconButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              context.router.pushAndPopUntil(
+                LoginRoute(),
+                predicate: (route) => false,
+              );
+            },
+            icon: const Icon(Icons.more_vert))
+      ],
+      centerTitle: false,
+      title: const AutoSizeText(
+        "Chatly",
+      ),
+      bottom: TabBar(controller: _controller, tabs: const [
+        Tab(
+          child: AutoSizeText("Messages"),
+        ),
+        Tab(
+          child: Text("Stories"),
+        ),
+      ]),
     );
   }
 }

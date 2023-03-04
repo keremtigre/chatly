@@ -37,9 +37,13 @@ class ChatsPage extends StatelessWidget {
                   const AutoSizeText("günaydınn aşkım nasılsın"),
                 ],
               ),
-              leading: CircleAvatar(
-                child: Text(index.toString()),
-              ),
+              leading: ClipOval(
+                  child: Image.network(
+                "https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=2000&t=st=1677951687~exp=1677952287~hmac=491ed943f7e0e9032fde6666d377211514cec5884c62d3aedc25e8f1e51fdd28",
+                fit: BoxFit.cover,
+                width: 50.0,
+                height: 50.0,
+              )),
               trailing: AutoSizeText("12.04",
                   style: Theme.of(context).textTheme.subtitle2!.copyWith(
                         color: Colors.black54,

@@ -13,11 +13,12 @@ extension ContextExtansions on BuildContext {
 
   String? nameValidator(String value) {
     if (value.isEmpty) return "Bu alan boş bırakılamaz";
-    final _regExp = RegExp("  ");
-    if (_regExp.allMatches(value).length >= 1 || value == " ") {
-      return "İsimlerin arasında en fazla 1 boşluk olabil";
+    final regExp = RegExp("  ");
+    if (regExp.allMatches(value).isNotEmpty || value == " ") {
+      return "İsimlerin arasında en fazla 1 boşluk olabilir";
     }
     if (value.endsWith(" ")) return "İsminizin sonundaki boşluğu kaldırın";
+    return null;
   }
 
   String? passwordValidator(String value) {

@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 abstract class IFirebaseAuthService {
   Future<String?> signUpWithEmailAndPassword(
@@ -8,8 +7,19 @@ abstract class IFirebaseAuthService {
 }
 
 class FirebaseAuthService extends IFirebaseAuthService {
+  //create FirebaseAuth instance
   final _firebaseAuth = FirebaseAuth.instance;
+
+  //
   User? _user;
+
+  //17-21 build singleton class
+  FirebaseAuthService._initFirebaseAuthService();
+  static FirebaseAuthService? _instance;
+  factory FirebaseAuthService() =>
+      _instance ??= FirebaseAuthService._initFirebaseAuthService();
+
+//Firebase signup method
   @override
   Future<String?> signUpWithEmailAndPassword(
       {String? name, String? email, String? password}) async {
@@ -31,8 +41,10 @@ class FirebaseAuthService extends IFirebaseAuthService {
     } catch (e) {
       return e.toString();
     }
+    return null;
   }
 
+//firebase login method
   @override
   Future<String?> loginWithEmailAndPassword(
       {String? email, String? password}) async {
@@ -40,14 +52,13 @@ class FirebaseAuthService extends IFirebaseAuthService {
       await _firebaseAuth
           .signInWithEmailAndPassword(email: email!, password: password!)
           .then((value) {
-        if (value != null) {
-          return null;
-        }
+        return null;
       });
     } on FirebaseAuthException catch (e) {
       return e.message.toString();
     } catch (e) {
       return e.toString();
     }
+    return null;
   }
 }

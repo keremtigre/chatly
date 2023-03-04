@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bloc/bloc.dart';
 import 'package:chatly/Product/routes/app_router.dart';
 import 'package:chatly/Screens/Authentication/Service/auth_service.dart';
-import 'package:chatly/Screens/Home/home.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'login_state.dart';
 
@@ -41,7 +39,7 @@ class LoginCubit extends Cubit<LoginState> {
         if (value == null) {
           emit(LoginComplated());
           await context.router.pushAndPopUntil(
-            HomeRoute(),
+            const HomeRoute(),
             predicate: (route) => false,
           );
         } else {

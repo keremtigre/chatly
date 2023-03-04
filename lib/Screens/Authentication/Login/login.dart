@@ -12,16 +12,14 @@ import 'package:chatly/Product/extansions/context_extensions.dart';
 import 'package:chatly/Screens/Authentication/Widgets/top_container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lottie/lottie.dart';
 part 'parts/forgot_password_widget.dart';
 part 'parts/login_with_other_platforms.dart';
 part 'parts/remember_me_checkbox.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -31,10 +29,10 @@ class _LoginPageState extends State<LoginPage> {
   Future _isLogged() async {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('User is currently signed out!');
+        debugPrint('User is currently signed out!');
       } else {
         context.router.pushAndPopUntil(
-          HomeRoute(),
+          const HomeRoute(),
           predicate: (route) => false,
         );
       }

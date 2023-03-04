@@ -1,8 +1,6 @@
 library sign_up.dart;
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:chatly/Product/extansions/validator.dart';
-import 'package:chatly/Screens/Authentication/Login/viewmodel/cubit/login_cubit.dart';
 import 'package:chatly/Screens/Authentication/SignUp/viewmodel/cubit/signup_cubit.dart';
 import 'package:chatly/Screens/Authentication/Widgets/create_auth_text_field.dart';
 import 'package:chatly/Screens/Authentication/Widgets/go_login_or_signup_page_text.dart';
@@ -12,11 +10,10 @@ import 'package:chatly/Screens/Authentication/Widgets/auth_button.dart';
 import 'package:chatly/Screens/Authentication/Widgets/top_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 part 'parts/signup_checkbox.dart';
 
 class SignUpPage extends StatelessWidget {
-  SignUpPage({super.key});
+  const SignUpPage({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -93,7 +90,7 @@ class SignUpPage extends StatelessWidget {
                     ),
                     Center(
                       child: context.read<SignUpCubit>().privacyPolicyAccepted
-                          ? SizedBox()
+                          ? const SizedBox()
                           : Text("* Gizlilik Politikasını kabul etmediniz.",
                               style: Theme.of(context)
                                   .textTheme

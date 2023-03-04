@@ -23,7 +23,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
         routeData: routeData,
         child: MessagesPage(key: args.key),
-        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionsBuilder: TransitionsBuilders.slideLeft,
         opaque: true,
         barrierDismissible: false,
       );

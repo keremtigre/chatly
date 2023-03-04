@@ -1,5 +1,4 @@
 import 'package:chatly/Product/extansions/context_extensions.dart';
-import 'package:chatly/Product/extansions/validator.dart';
 import 'package:flutter/material.dart';
 
 Widget createAuthTextFormField(
