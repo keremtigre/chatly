@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chatly/Screens/Authentication/Login/login.dart';
 import 'package:chatly/Screens/Authentication/SignUp/sign_up.dart';
+import 'package:chatly/Screens/Home/Contacts/contacts.dart';
 import 'package:chatly/Screens/Home/Messages/messages.dart';
 import 'package:chatly/Screens/Home/home.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,10 @@ part 'app_router.gr.dart';
     AutoRoute(
       page: HomePage,
       path: "/home",
+    ),
+    AutoRoute(
+      page: ContactsPage,
+      path: "/contacts",
     ),
   ],
 )

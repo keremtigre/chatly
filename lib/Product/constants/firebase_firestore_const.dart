@@ -3,7 +3,8 @@ class FirestoreConst {
   static const collectionPathMessages = "messages/";
   static const id = "id";
   static const displayName = "displayName";
-  static const chattingWith = "chattingWith";
   static const photoUrl = "photoUrl";
   static const createdAt = "createdAt";
+  static const emailAddress = "emailAddress";
+  static const contacts = "contacts";
 }

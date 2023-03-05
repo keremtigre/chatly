@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 abstract class IFirebaseAuthService {
   Future<String?> signUpWithEmailAndPassword(
@@ -60,5 +61,15 @@ class FirebaseAuthService extends IFirebaseAuthService {
       return e.toString();
     }
     return null;
+  }
+
+  Future<void> signOut({String? email, String? password}) async {
+    try {
+      await _firebaseAuth.signOut();
+    } on FirebaseAuthException catch (e) {
+      debugPrint(e.message.toString());
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }

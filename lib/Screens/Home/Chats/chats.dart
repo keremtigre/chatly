@@ -12,7 +12,9 @@ class ChatsPage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.message),
-        onPressed: () {},
+        onPressed: () {
+          context.router.push(ContactsRoute());
+        },
       ),
       body: ListView.builder(
         itemCount: 10,

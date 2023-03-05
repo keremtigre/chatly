@@ -62,7 +62,9 @@ class _MessagesPageState extends State<MessagesPage> {
                 itemBuilder: (context, index) {
                   return Row(
                     children: [
-                      index % 2 == 0 ? const SizedBox(width: 10) : const Spacer(),
+                      index % 2 == 0
+                          ? const SizedBox(width: 10)
+                          : const Spacer(),
                       Expanded(
                           child: Container().messageBoxStyle(
                         context,
@@ -97,7 +99,9 @@ class _MessagesPageState extends State<MessagesPage> {
                           ],
                         ),
                       )),
-                      index % 2 == 1 ? const SizedBox(width: 10) : const Spacer(),
+                      index % 2 == 1
+                          ? const SizedBox(width: 10)
+                          : const Spacer(),
                     ],
                   );
                 },
@@ -130,12 +134,15 @@ class _MessagesPageState extends State<MessagesPage> {
   }
 
   List<String> messageList = [
-    "Selam Kerem!",
-    "Selam İlayda!",
+    "günaydınn",
+    "günaydınn",
+    "akşam 8'de yemek "
+    /*  "Selam Kerem!",
+    "Selam Buse!",
     "Nasılsın?",
     "iyiyim, sen nasılsın?",
     "bende iyiyim",
     "seni seviyorum demek için mesaj attım, ayrıdca çoook ama çook",
-    "bende seni seviyorum canımm <333"
+    "bende seni seviyorum canımm <333" */
   ];
 }

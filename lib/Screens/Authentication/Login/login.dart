@@ -26,11 +26,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  Future _isLogged() async {
+  _isLogged() async {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         debugPrint('User is currently signed out!');
       } else {
+        debugPrint("girdi");
         context.router.pushAndPopUntil(
           const HomeRoute(),
           predicate: (route) => false,
@@ -41,10 +42,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await _isLogged();
-    });
     super.initState();
+    _isLogged();
   }
 
   @override

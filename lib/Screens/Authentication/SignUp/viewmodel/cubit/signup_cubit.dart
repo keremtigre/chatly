@@ -39,7 +39,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (signUpFormKeyFormKey.currentState!.validate() &&
         privacyPolicyAccepted) {
       emit(SignUpLoading());
-      await Future.delayed(const Duration(milliseconds: 100));
       //call signupservice method
       await firebaseAuthService
           .signUpWithEmailAndPassword(
@@ -59,11 +58,11 @@ class SignUpCubit extends Cubit<SignUpState> {
                 "${signUpNameController.text} ${signUpSurnameController.text}",
             FirestoreConst.photoUrl: user?.photoURL,
             FirestoreConst.id: user?.uid,
+            FirestoreConst.contacts: null,
+            FirestoreConst.emailAddress: user?.email,
             FirestoreConst.createdAt:
                 DateTime.now().millisecondsSinceEpoch.toString(),
-            FirestoreConst.chattingWith: null
           });
-          await Future.delayed(const Duration(milliseconds: 600));
           context.router.pushAndPopUntil(
             const HomeRoute(),
             predicate: (route) => false,

@@ -18,33 +18,27 @@ class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     MessagesRoute.name: (routeData) {
-      final args = routeData.argsAs<MessagesRouteArgs>(
-          orElse: () => const MessagesRouteArgs());
       return CustomPage<dynamic>(
         routeData: routeData,
-        child: MessagesPage(key: args.key),
+        child: const MessagesPage(),
         transitionsBuilder: TransitionsBuilders.slideLeft,
         opaque: true,
         barrierDismissible: false,
       );
     },
     LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>(
-          orElse: () => const LoginRouteArgs());
       return CustomPage<dynamic>(
         routeData: routeData,
-        child: LoginPage(key: args.key),
+        child: const LoginPage(),
         transitionsBuilder: TransitionsBuilders.slideBottom,
         opaque: true,
         barrierDismissible: false,
       );
     },
     SignUpRoute.name: (routeData) {
-      final args = routeData.argsAs<SignUpRouteArgs>(
-          orElse: () => const SignUpRouteArgs());
       return CustomPage<dynamic>(
         routeData: routeData,
-        child: SignUpPage(key: args.key),
+        child: const SignUpPage(),
         transitionsBuilder: TransitionsBuilders.slideBottom,
         opaque: true,
         barrierDismissible: false,
@@ -54,6 +48,12 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
         routeData: routeData,
         child: const HomePage(),
+      );
+    },
+    ContactsRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const ContactsPage(),
       );
     },
   };
@@ -82,79 +82,47 @@ class _$AppRouter extends RootStackRouter {
           HomeRoute.name,
           path: '/home',
         ),
+        RouteConfig(
+          ContactsRoute.name,
+          path: '/contacts',
+        ),
       ];
 }
 
 /// generated route for
 /// [MessagesPage]
-class MessagesRoute extends PageRouteInfo<MessagesRouteArgs> {
-  MessagesRoute({Key? key})
+class MessagesRoute extends PageRouteInfo<void> {
+  const MessagesRoute()
       : super(
           MessagesRoute.name,
           path: '/messages',
-          args: MessagesRouteArgs(key: key),
         );
 
   static const String name = 'MessagesRoute';
 }
 
-class MessagesRouteArgs {
-  const MessagesRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'MessagesRouteArgs{key: $key}';
-  }
-}
-
 /// generated route for
 /// [LoginPage]
-class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
-  LoginRoute({Key? key})
+class LoginRoute extends PageRouteInfo<void> {
+  const LoginRoute()
       : super(
           LoginRoute.name,
           path: '/login',
-          args: LoginRouteArgs(key: key),
         );
 
   static const String name = 'LoginRoute';
 }
 
-class LoginRouteArgs {
-  const LoginRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'LoginRouteArgs{key: $key}';
-  }
-}
-
 /// generated route for
 /// [SignUpPage]
-class SignUpRoute extends PageRouteInfo<SignUpRouteArgs> {
-  SignUpRoute({Key? key})
+class SignUpRoute extends PageRouteInfo<void> {
+  const SignUpRoute()
       : super(
           SignUpRoute.name,
           path: '/signup',
-          args: SignUpRouteArgs(key: key),
         );
 
   static const String name = 'SignUpRoute';
-}
-
-class SignUpRouteArgs {
-  const SignUpRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'SignUpRouteArgs{key: $key}';
-  }
 }
 
 /// generated route for
@@ -167,4 +135,16 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+}
+
+/// generated route for
+/// [ContactsPage]
+class ContactsRoute extends PageRouteInfo<void> {
+  const ContactsRoute()
+      : super(
+          ContactsRoute.name,
+          path: '/contacts',
+        );
+
+  static const String name = 'ContactsRoute';
 }
