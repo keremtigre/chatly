@@ -51,9 +51,11 @@ class _$AppRouter extends RootStackRouter {
       );
     },
     ContactsRoute.name: (routeData) {
+      final args = routeData.argsAs<ContactsRouteArgs>(
+          orElse: () => const ContactsRouteArgs());
       return MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const ContactsPage(),
+        child: ContactsPage(key: args.key),
       );
     },
   };
@@ -139,12 +141,24 @@ class HomeRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ContactsPage]
-class ContactsRoute extends PageRouteInfo<void> {
-  const ContactsRoute()
+class ContactsRoute extends PageRouteInfo<ContactsRouteArgs> {
+  ContactsRoute({Key? key})
       : super(
           ContactsRoute.name,
           path: '/contacts',
+          args: ContactsRouteArgs(key: key),
         );
 
   static const String name = 'ContactsRoute';
+}
+
+class ContactsRouteArgs {
+  const ContactsRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ContactsRouteArgs{key: $key}';
+  }
 }

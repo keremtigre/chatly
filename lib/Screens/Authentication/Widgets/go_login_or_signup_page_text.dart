@@ -23,7 +23,7 @@ class GoLoginOrSignUpPageText extends StatelessWidget {
                 text: !isLoginPage ? "Giriş yap" : "Kayıt ol",
                 recognizer: TapGestureRecognizer()
                   ..onTap = () => isLoginPage
-                      ? context.pushRoute(SignUpRoute())
+                      ? context.pushRoute(const SignUpRoute())
                       : Navigator.pop(context),
                 style: Theme.of(context).textTheme.headline6?.copyWith(
                     color: Theme.of(context).primaryColor, fontSize: 17)),

@@ -1,12 +1,18 @@
 import 'package:chatly/Product/routes/app_router.dart';
+import 'package:chatly/Screens/Home/Contacts/cubit/contacts_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(
+      create: (context) => ContactsCubit(),
+    )
+  ], child: MyApp()));
 }
 
 // ignore: must_be_immutable
@@ -34,6 +40,7 @@ class MyApp extends StatelessWidget {
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
         ),
+        //fontFamily: 'Montserrat',
         textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme),
         primarySwatch: MaterialColor(0xff0584FE, color),
         unselectedWidgetColor: Theme.of(context).primaryColor);

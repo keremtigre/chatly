@@ -22,7 +22,7 @@ class ChatsPage extends StatelessWidget {
           return Card(
             child: ListTile(
               onTap: () {
-                context.router.push(MessagesRoute());
+                context.router.push(const MessagesRoute());
               },
               title: AutoSizeText("$index Bey"),
               subtitle: Row(
