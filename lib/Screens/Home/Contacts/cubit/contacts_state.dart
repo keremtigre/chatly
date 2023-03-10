@@ -1,10 +1,6 @@
 part of 'contacts_cubit.dart';
 
-abstract class ContactsState extends Equatable {
-  const ContactsState();
-
-  @override
-  List<Object> get props => [];
-}
+@immutable
+abstract class ContactsState {}
 
 class ContactsInitial extends ContactsState {}

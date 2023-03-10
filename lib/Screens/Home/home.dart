@@ -3,7 +3,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:chatly/Product/routes/app_router.dart';
 import 'package:chatly/Screens/Authentication/Service/auth_service.dart';
 import 'package:chatly/Screens/Home/Chats/chats.dart';
-import 'package:chatly/Screens/Home/Contacts/ContactsService/contacts_service.dart';
 import 'package:chatly/Screens/Home/Stories/stories.dart';
 import 'package:flutter/material.dart';
 
@@ -17,12 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final TabController _controller =
       TabController(length: 2, vsync: this, initialIndex: 0);
-  @override
-  void initState() {
-    super.initState();
-    ContactsService().getContactsFromService();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

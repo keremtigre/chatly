@@ -1,4 +1,3 @@
-
 class Contacts {
   String? id;
   String? photoUrl;
@@ -14,9 +13,18 @@ class Contacts {
 
   static Contacts fromMap(Map<String, dynamic> data) {
     return Contacts(
-        id: data["id"],
-        emailAddress: data["emailAddress"],
-        photoUrl: data["photoUrl"],
-        displayName: data["displayName"]);
+        id: data["id"] ?? "",
+        emailAddress: data["emailAddress"] ?? "",
+        photoUrl: data["photoUrl"] ?? "",
+        displayName: data["displayName"] ?? "");
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'photoUrl': photoUrl,
+      'displayName': displayName,
+      'emailAddress': emailAddress,
+    };
   }
 }

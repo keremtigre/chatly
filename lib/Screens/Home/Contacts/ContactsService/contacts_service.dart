@@ -19,26 +19,24 @@ class ContactsService extends IContactsService {
   factory ContactsService() => _instance ??= ContactsService._init();
 
   @override
-  Future<bool>? addContact({Contacts? value}) {
+  Future<bool>? addContact({Contacts? value}) async {
     try {
-      firebaseFirestore
+      final user = Contacts(
+          displayName: value?.displayName ?? "",
+          emailAddress: value?.emailAddress ?? "",
+          id: value?.id ?? "",
+          photoUrl: value?.photoUrl ?? "");
+      await firebaseFirestore
           .collection(FirestoreConst.collectionPathUser)
           .doc(firebaseAuth.currentUser?.uid)
           .update({
-        "contacts": FieldValue.arrayUnion([
-          {
-            FirestoreConst.displayName: value?.displayName,
-            FirestoreConst.photoUrl: value?.photoUrl,
-            FirestoreConst.id: value?.id,
-            FirestoreConst.emailAddress: value?.emailAddress,
-          }
-        ])
+        "contacts": FieldValue.arrayUnion([user.toMap()])
       });
       return Future.value(true);
     } on FirebaseException catch (e) {
       debugPrint(e.message.toString());
     }
-    return null;
+    return Future.value(false);
   }
 
   @override
@@ -63,6 +61,21 @@ class ContactsService extends IContactsService {
     }
   }
 
+  Future<bool?> deleteFriend(Contacts? deletedFriend) async {
+    try {
+      await firebaseFirestore
+          .collection(FirestoreConst.collectionPathUser)
+          .doc(firebaseAuth.currentUser?.uid)
+          .update({
+        "contacts": FieldValue.arrayRemove([deletedFriend?.toMap()])
+      });
+      return Future.value(true);
+    } on FirebaseException catch (e) {
+      debugPrint(e.message.toString());
+    }
+    return Future.value(false);
+  }
+
   @override
   Future<List<Contacts>?> getContactsFromService() async {
     try {
@@ -70,9 +83,8 @@ class ContactsService extends IContactsService {
           .collection(FirestoreConst.collectionPathUser)
           .doc(firebaseAuth.currentUser?.uid)
           .get();
-      if (response.exists) {
+      if (response.data()?["contacts"] != null) {
         final chatUser = ChatUser.fromMap(response.data()!);
-        debugPrint("contacts: ${chatUser.contacts?.first.displayName}");
         return chatUser.contacts;
       } else {
         return null;

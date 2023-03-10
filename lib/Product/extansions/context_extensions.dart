@@ -6,6 +6,14 @@ extension ContextExtansions on BuildContext {
   //mediaquery size
   double get height => MediaQuery.of(this).size.height;
   double get width => MediaQuery.of(this).size.height;
+  EdgeInsets get paddingAllLow5 => const EdgeInsets.all(5);
+  EdgeInsets get paddingAllLow8 => const EdgeInsets.all(8);
+  EdgeInsets get paddingAllLow10 => const EdgeInsets.all(10);
+  EdgeInsets get paddingAllLow13 => const EdgeInsets.all(13);
+  EdgeInsets get paddingAllMedium15 => const EdgeInsets.all(15);
+  EdgeInsets get paddingAllMedium20 => const EdgeInsets.all(20);
+  EdgeInsets get paddingAllMedium25 => const EdgeInsets.all(25);
+  EdgeInsets get paddingAllMedium30 => const EdgeInsets.all(30);
 
   //valdiator methods
   String? emailValidator(String value) {

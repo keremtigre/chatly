@@ -19,16 +19,18 @@ class ChatUser {
   static ChatUser fromMap(Map<String, dynamic> data) {
     return ChatUser(
         id: data["id"],
-        emailAddress: data["emailAddress"],
-        photoUrl: data["photoUrl"],
-        displayName: data["displayName"],
-        contacts: List<Contacts>.from(data["contacts"].map((item) {
-          return Contacts(
-              displayName: item["displayName"],
-              emailAddress: item["emailAddress"],
-              id: item["id"],
-              photoUrl: item["photoUrl"]);
-        })),
-        aboutMe: data["aboutMe"]);
+        emailAddress: data["emailAddress"] ?? "",
+        photoUrl: data["photoUrl"] ?? "",
+        displayName: data["displayName"] ?? "",
+        contacts: data["contacts"] != null
+            ? List<Contacts>.from(data["contacts"].map((item) {
+                return Contacts(
+                    displayName: item["displayName"],
+                    emailAddress: item["emailAddress"],
+                    id: item["id"],
+                    photoUrl: item["photoUrl"]);
+              }))
+            : [],
+        aboutMe: data["aboutMe"] ?? "");
   }
 }
