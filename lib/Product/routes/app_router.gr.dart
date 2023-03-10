@@ -18,9 +18,16 @@ class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     MessagesRoute.name: (routeData) {
+      final args = routeData.argsAs<MessagesRouteArgs>(
+          orElse: () => const MessagesRouteArgs());
       return CustomPage<dynamic>(
         routeData: routeData,
-        child: const MessagesPage(),
+        child: MessagesPage(
+          key: args.key,
+          userId: args.userId,
+          userName: args.userName,
+          userPhotoUrl: args.userPhotoUrl,
+        ),
         transitionsBuilder: TransitionsBuilders.slideLeft,
         opaque: true,
         barrierDismissible: false,
@@ -51,11 +58,9 @@ class _$AppRouter extends RootStackRouter {
       );
     },
     ContactsRoute.name: (routeData) {
-      final args = routeData.argsAs<ContactsRouteArgs>(
-          orElse: () => const ContactsRouteArgs());
       return MaterialPageX<dynamic>(
         routeData: routeData,
-        child: ContactsPage(key: args.key),
+        child: const ContactsPage(),
       );
     },
   };
@@ -93,14 +98,46 @@ class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [MessagesPage]
-class MessagesRoute extends PageRouteInfo<void> {
-  const MessagesRoute()
-      : super(
+class MessagesRoute extends PageRouteInfo<MessagesRouteArgs> {
+  MessagesRoute({
+    Key? key,
+    String? userId,
+    String? userName,
+    String? userPhotoUrl,
+  }) : super(
           MessagesRoute.name,
           path: '/messages',
+          args: MessagesRouteArgs(
+            key: key,
+            userId: userId,
+            userName: userName,
+            userPhotoUrl: userPhotoUrl,
+          ),
         );
 
   static const String name = 'MessagesRoute';
+}
+
+class MessagesRouteArgs {
+  const MessagesRouteArgs({
+    this.key,
+    this.userId,
+    this.userName,
+    this.userPhotoUrl,
+  });
+
+  final Key? key;
+
+  final String? userId;
+
+  final String? userName;
+
+  final String? userPhotoUrl;
+
+  @override
+  String toString() {
+    return 'MessagesRouteArgs{key: $key, userId: $userId, userName: $userName, userPhotoUrl: $userPhotoUrl}';
+  }
 }
 
 /// generated route for
@@ -141,24 +178,12 @@ class HomeRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ContactsPage]
-class ContactsRoute extends PageRouteInfo<ContactsRouteArgs> {
-  ContactsRoute({Key? key})
+class ContactsRoute extends PageRouteInfo<void> {
+  const ContactsRoute()
       : super(
           ContactsRoute.name,
           path: '/contacts',
-          args: ContactsRouteArgs(key: key),
         );
 
   static const String name = 'ContactsRoute';
-}
-
-class ContactsRouteArgs {
-  const ContactsRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'ContactsRouteArgs{key: $key}';
-  }
 }

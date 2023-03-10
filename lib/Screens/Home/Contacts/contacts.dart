@@ -6,6 +6,7 @@ import 'package:chatly/Product/extansions/context_extensions.dart';
 import 'package:chatly/Product/extansions/text_form_field_extensions.dart';
 import 'package:chatly/Product/models/contacts.dart';
 import 'package:chatly/Product/routes/app_router.dart';
+import 'package:chatly/Product/widgets/user_profile_photo_widget.dart';
 import 'package:chatly/Screens/Home/Contacts/cubit/contacts_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -20,11 +21,15 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
+  bool _isloadingPage = false;
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      _isloadingPage = true;
+      setState(() {});
       await context.read<ContactsCubit>().getContacts();
+      _isloadingPage = false;
     });
   }
 
@@ -61,9 +66,13 @@ class _ContactsPageState extends State<ContactsPage> {
             ? Column(
                 children: [
                   Container(
-                      padding: context.paddingAllLow10,
+                      padding: context.paddingAllMedium20,
                       alignment: Alignment.centerLeft,
-                      child: const AutoSizeText("My Contacts")),
+                      child: AutoSizeText(
+                        "My Contacts",
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(),
+                      )),
                   Expanded(
                       child: ListView.builder(
                     itemCount: contactsCubit.contacts?.length ?? 0,
@@ -74,9 +83,13 @@ class _ContactsPageState extends State<ContactsPage> {
                   )),
                 ],
               )
-            : const Center(
-                child:
-                    AutoSizeText("Kişi listenizde henüz bir arkadışınız yok."));
+            : _isloadingPage
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : const Center(
+                    child: AutoSizeText(
+                        "Kişi listenizde henüz bir arkadışınız yok."));
       },
     );
   }
@@ -113,24 +126,24 @@ class _UserCard extends StatelessWidget {
       ),
       key: UniqueKey(),
       child: Card(
+        elevation: 0,
+        color: Colors.transparent,
         child: ListTile(
-          onTap: () {
-            context.router.push(const MessagesRoute());
-          },
-          title: AutoSizeText(contacts?.displayName ?? ""),
-          leading: ClipOval(
-              child: contacts?.photoUrl != ""
-                  ? Image.network(
-                      "${contacts?.photoUrl}",
-                      fit: BoxFit.cover,
-                      width: 50.0,
-                      height: 50.0,
-                    )
-                  : CircleAvatar(
-                      child: AutoSizeText(
-                          "${contacts?.displayName}".substring(0, 1)),
-                    )),
-        ),
+            onTap: () {
+              context.router.push(MessagesRoute(
+                  userId: contacts?.id,
+                  userPhotoUrl: contacts?.photoUrl,
+                  userName: contacts?.displayName));
+            },
+            title: AutoSizeText(contacts?.displayName ?? ""),
+            subtitle: AutoSizeText(
+              "Pili bitmek Üzere",
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(),
+            ),
+            leading: UserProfilePhotoWidget(
+              displayName: contacts?.displayName,
+              photoUrl: contacts?.photoUrl ?? "",
+            )),
       ),
     );
   }

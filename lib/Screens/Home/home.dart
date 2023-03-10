@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:chatly/Product/routes/app_router.dart';
 import 'package:chatly/Screens/Authentication/Service/auth_service.dart';
 import 'package:chatly/Screens/Home/Chats/chats.dart';
+import 'package:chatly/Screens/Home/Messages/service/chat_message_service.dart';
 import 'package:chatly/Screens/Home/Stories/stories.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final TabController _controller =
       TabController(length: 2, vsync: this, initialIndex: 0);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ChatMessageService().sendMessage(
+        content: "kerem nasılsın",
+        currentUserId: "A",
+        peerId: "B",
+        groupChatId: "AB",
+        type: 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

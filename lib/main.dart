@@ -1,5 +1,6 @@
 import 'package:chatly/Product/routes/app_router.dart';
 import 'package:chatly/Screens/Home/Contacts/cubit/contacts_cubit.dart';
+import 'package:chatly/Screens/Home/Messages/cubit/messages_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,7 @@ void main() async {
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
       create: (context) => ContactsCubit(),
-    )
+    ),
   ], child: MyApp()));
 }
 
