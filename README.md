@@ -19,6 +19,17 @@ The Chatly project is an application that enables users to message each other. T
 - Cloud Messaging and Database in Firebase
 
  <img src="assets/icon/chat_icon.png" alt="Chatly-Chat App" height="200"/>  
+ 
+# Sign Up            -               Add User           -              Login
+
+![sign_up](https://github.com/keremtigre/chatly/assets/47521147/eb72c3c0-02b5-413b-89a6-8adf1002b68a) 
+![add_user](https://github.com/keremtigre/chatly/assets/47521147/2c50047f-b184-40aa-9cfe-ab09309e6f33)
+![login](https://github.com/keremtigre/chatly/assets/47521147/0df52d7c-41f6-462c-8e19-18e440ee9175)
+# Messaging
+![send_message](https://github.com/keremtigre/chatly/assets/47521147/6a439a6c-baf5-4180-92fd-9d24c9c377fb)
+
+
+ 
 
 ## Kütüphaneler
 
